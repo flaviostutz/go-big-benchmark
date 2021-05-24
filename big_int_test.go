@@ -131,3 +131,27 @@ func BenchmarkLargeFloatMulNative(b *testing.B) {
 	//avoid compiler optimizations
 	floatr = r
 }
+
+func BenchmarkLargeFloatSumBig(b *testing.B) {
+	z := big.NewFloat(0)
+	x, y := big.NewFloat(12345879678.2342342342342), big.NewFloat(5674298865645645654.12342342423423)
+	for i := 0; i < b.N; i++ {
+		x = x.Add(x, y)
+		//avoid compiler optimizations
+		z = x
+	}
+	//avoid compiler optimizations
+	bigif = z
+}
+
+func BenchmarkLargeFloatSumNative(b *testing.B) {
+	r := 0.0
+	x, y := 12345879678.2342342342342, 5674298865645645654.12342342423423
+	for i := 0; i < b.N; i++ {
+		x = x + y
+		//avoid compiler optimizations
+		r = x
+	}
+	//avoid compiler optimizations
+	floatr = r
+}
