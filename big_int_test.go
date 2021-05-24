@@ -197,6 +197,18 @@ func BenchmarkLargeFloatMulNative(b *testing.B) {
 	floatr = r
 }
 
+func BenchmarkLargeFloatSumDecimal(b *testing.B) {
+	z := decimal.NewFromFloat(0)
+	x, y := decimal.NewFromFloat(12345879678.2342342342342), decimal.NewFromFloat(5674298865645645654.12342342423423)
+	for i := 0; i < b.N; i++ {
+		x = x.Add(y)
+		//avoid compiler optimizations
+		z = x
+	}
+	//avoid compiler optimizations
+	decir = &z
+}
+
 func BenchmarkLargeFloatSumBig(b *testing.B) {
 	z := big.NewFloat(0)
 	x, y := big.NewFloat(12345879678.2342342342342), big.NewFloat(5674298865645645654.12342342423423)
@@ -219,16 +231,4 @@ func BenchmarkLargeFloatSumNative(b *testing.B) {
 	}
 	//avoid compiler optimizations
 	floatr = r
-}
-
-func BenchmarkLargeFloatSumDecimal(b *testing.B) {
-	z := decimal.NewFromFloat(0)
-	x, y := decimal.NewFromFloat(12345879678.2342342342342), decimal.NewFromFloat(5674298865645645654.12342342423423)
-	for i := 0; i < b.N; i++ {
-		x = x.Add(y)
-		//avoid compiler optimizations
-		z = x
-	}
-	//avoid compiler optimizations
-	decir = &z
 }
