@@ -1,6 +1,10 @@
 # go-big-benchmark
 
-This is a benchmark of the "big" golang package in relation to native float and int operations
+This is a benchmark of some golang decimal number packages in relation to native float and int operations. 
+
+Currently evaluated packages:
+* [Big](https://golang.org/pkg/math/big/)
+* [Decimal](https://github.com/shopspring/decimal)
 
 ## Results
 
@@ -9,9 +13,15 @@ Machine: Macbook Pro - Intel(R) Core(TM) i7-4850HQ CPU @ 2.30GHz
 During my tests I observed the following:
 
 * big.Int sums are 50x slower than with native int
+* decimal.Int sums are 300x slower than with native int
 * big.Float sums are 100x slower than with native float64
+* decimal.Float sums are 100x slower than with native float64
 * big.Float multiplications and divisions are 50x slower than with native float64 for small numbers
+* decimal.Float multiplications are 150.000x (!) slower than with native float64 for small numbers
+* decimal.Float divisions are 50x slower than with native float64 for small numbers
 * big.Float multiplications and divisions are just 5x slower than with native float64 for large numbers
+* decimal.Float multiplications are 5x slower than with native float64 for large numbers
+* decimal.Float divisions are 5x slower than with native float64 for large numbers
 * there is no performance penaulty running in Docker container
 
 ## Usage
@@ -19,7 +29,7 @@ During my tests I observed the following:
 ### Run in Docker container
 
 * git clone this repository
-* docker-compose build
+* `docker-compose up --build`
 * sample results from my Mac
 
 ```sh

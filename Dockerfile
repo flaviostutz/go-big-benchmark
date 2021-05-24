@@ -8,4 +8,4 @@ ADD go.sum .
 RUN go mod download
 
 ADD . ./
-RUN go test -bench=. ./... -benchmem -benchtime=10s
+CMD [ "go", "test", "-bench=.", "./...", "-benchmem", "-benchtime=3s"]
